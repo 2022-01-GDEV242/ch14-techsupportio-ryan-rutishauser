@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.*;
@@ -24,7 +25,7 @@ public class Responder
     // Default responses to use if we don't recognise a word.
     private ArrayList<String> defaultResponses;
     // The name of the file containing the default responses.
-    private static final String FILE_OF_DEFAULT_RESPONSES = "default.txt";
+    private static final String FILE_OF_DEFAULT_RESPONSES = "sample.txt";
     private Random randomGenerator;
 
     /**
@@ -125,10 +126,27 @@ public class Responder
         Path path = Paths.get(FILE_OF_DEFAULT_RESPONSES);
         try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
             String response = reader.readLine();
+            // while(response != null) {
+                // defaultResponses.add(response);
+                // response = reader.readLine();
+            // }
             while(response != null) {
-                defaultResponses.add(response);
+            if(response == ""){
                 response = reader.readLine();
             }
+            else{
+                String res;
+                res = response;
+                response = reader.readLine();
+                if(response != ""){
+                while(response != ""){
+                StringBuffer resp = new StringBuffer(response);
+                res += resp;  
+                }
+            }
+            defaultResponses.add(res);
+            }
+        }
         }
         catch(FileNotFoundException e) {
             System.err.println("Unable to open " + FILE_OF_DEFAULT_RESPONSES);
